@@ -1,0 +1,1260 @@
+<!--
+Проект: Лендинг для психолога-консультанта Марии Ридзель
+Описание: Адаптивный лендинг с современным soft minimalism дизайном.
+Технологии: HTML5 + CSS3 + Vanilla JavaScript
+Особенности:
+- Полностью адаптивная верстка
+- Accessibility (a11y)
+- Семантическая структура
+- Минимум зависимостей
+- Модальное окно и валидация формы
+
+Запуск:
+1. Сохраните файл как index.html
+2. Откройте в браузере
+3. Для публикации загрузите на любой хостинг
+
+Рекомендуется:
+- заменить photo.jpg на реальное фото Марии
+- добавить реальные ссылки на соцсети
+-->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Мария Ридзель — психолог-консультант</title>
+
+  <meta
+    name="description"
+    content="Психолог-консультант Мария Ридзель. Индивидуальные консультации онлайн и очно. Поддержка при тревоге, выгорании, кризисах и сложностях в отношениях."
+  />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #f9f7f7;
+      --text: #2D3748;
+      --accent: #8B73D1;
+      --accent-hover: #755bc7;
+      --muted: #E2E8F0;
+      --white: #ffffff;
+
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Inter', sans-serif;
+
+      --radius: 12px;
+
+      --shadow:
+        0 10px 30px rgba(0,0,0,0.06);
+
+      --transition:
+        all 0.3s ease;
+
+      --container:
+        1200px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    .container {
+      width: min(92%, var(--container));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .section-text {
+      max-width: 760px;
+      font-size: 1.05rem;
+      color: #4A5568;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(249,247,247,0.9);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .navbar {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    nav a {
+      transition: var(--transition);
+      position: relative;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: var(--accent);
+    }
+
+    .burger {
+      display: none;
+      background: transparent;
+    }
+
+    .burger svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,0.9),
+          rgba(226,232,240,0.85)
+        ),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop')
+        center/cover;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.7rem, 6vw, 5rem);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      max-width: 580px;
+      margin-bottom: 32px;
+      color: #4A5568;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 16px 28px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      font-weight: 500;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: white;
+      padding: 16px 28px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      object-fit: cover;
+      height: 620px;
+      width: 100%;
+    }
+
+    .hero-badge {
+      margin-top: 32px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(12px);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+    }
+
+    /* ABOUT */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-card {
+      background: white;
+      padding: 36px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .about-list {
+      margin-top: 28px;
+      display: grid;
+      gap: 18px;
+      list-style: none;
+    }
+
+    .about-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 500;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(139,115,209,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* SERVICES */
+
+    .cards-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      color: #4A5568;
+    }
+
+    /* CONSULTATION */
+
+    .consultation-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .consultation-card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .confidential {
+      margin-top: 40px;
+      background: var(--muted);
+      padding: 28px;
+      border-radius: 24px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* CTA */
+
+    .cta {
+      background: linear-gradient(
+        135deg,
+        rgba(139,115,209,0.08),
+        rgba(255,255,255,1)
+      );
+    }
+
+    .cta-wrapper {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .contact-phone {
+      margin-top: 28px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    form {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: var(--radius);
+      border: 1px solid #D1D5DB;
+      background: white;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(139,115,209,0.15);
+    }
+
+    .error {
+      color: #c53030;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      background: white;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .socials {
+      display: flex;
+      gap: 16px;
+    }
+
+    .socials a {
+      transition: var(--transition);
+    }
+
+    .socials a:hover {
+      color: var(--accent);
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      padding: 20px;
+      z-index: 2000;
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      animation: fadeUp 0.4s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: transparent;
+      font-size: 1.5rem;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 992px) {
+
+      .hero-grid,
+      .about-grid,
+      .cta-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .consultation-wrapper,
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 100px 0 60px;
+      }
+
+      .hero-image img {
+        height: 500px;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .section {
+        padding: 72px 0;
+      }
+
+      nav {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 100%;
+        background: white;
+        padding: 24px;
+        display: none;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
+
+      nav.active {
+        display: block;
+      }
+
+      nav ul {
+        flex-direction: column;
+      }
+
+      .burger {
+        display: block;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-image img {
+        height: 420px;
+      }
+
+      form {
+        padding: 28px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+    <div class="container navbar">
+
+      <a href="#" class="logo" aria-label="Главная">
+        Мария Ридзель
+      </a>
+
+      <button
+        class="burger"
+        aria-label="Открыть меню"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+
+      <nav id="mobile-nav" aria-label="Навигация">
+        <ul>
+          <li><a href="#about">О практике</a></li>
+          <li><a href="#services">Запросы</a></li>
+          <li><a href="#consultation">Консультации</a></li>
+          <li><a href="#contact">Запись</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="container hero-grid">
+
+      <div>
+
+        <h1>
+          Психолог-консультант<br>
+          Мария Ридзель
+        </h1>
+
+        <p>
+          Создаю безопасное пространство
+          для самопознания и обретения
+          внутренней опоры.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a
+            href="#contact"
+            class="btn-primary"
+          >
+            Записаться на консультацию
+          </a>
+
+          <a
+            href="tel:+79117274986"
+            class="btn-secondary"
+          >
+            Позвонить
+          </a>
+
+        </div>
+
+        <div class="hero-badge">
+
+          <div class="badge">
+            Онлайн и очно
+          </div>
+
+          <div class="badge">
+            50 минут
+          </div>
+
+          <div class="badge">
+            Конфиденциально
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="hero-image">
+        <img
+          src="photo.png"
+          alt="Психолог-консультант Мария Ридзель"
+        />
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section
+    id="about"
+    class="section"
+  >
+
+    <div class="container about-grid">
+
+      <div>
+
+        <h2 class="section-title">
+          О моей практике
+        </h2>
+
+        <p class="section-text">
+          Я начала свою практику в качестве
+          психолога-консультанта.
+          Моя цель — создать доверительное
+          пространство, где вы сможете
+          открыто делиться мыслями,
+          переживаниями и чувствовать
+          себя в безопасности.
+        </p>
+
+      </div>
+
+      <div class="about-card">
+
+        <ul class="about-list">
+
+          <li>
+            <div class="icon">✓</div>
+            Психодинамический подход
+          </li>
+
+          <li>
+            <div class="icon">✓</div>
+            Конфиденциальность гарантирована
+          </li>
+
+          <li>
+            <div class="icon">✓</div>
+            Индивидуальный подход к каждому
+          </li>
+
+          <li>
+            <div class="icon">✓</div>
+            Более 3 лет практики
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SERVICES -->
+
+  <section
+    id="services"
+    class="section"
+  >
+
+    <div class="container">
+
+      <h2 class="section-title">
+        Чем я могу помочь?
+      </h2>
+
+      <p class="section-text">
+        Поддержка в сложных жизненных
+        периодах, работа с тревогой,
+        эмоциональным напряжением
+        и отношениями с собой и другими.
+      </p>
+
+      <div class="cards-grid">
+
+        <article class="card">
+
+          <div class="icon">
+            🧠
+          </div>
+
+          <div>
+            <h3>
+              Стресс и тревожность
+            </h3>
+
+            <p>
+              Помощь в преодолении стресса,
+              тревожности и эмоционального
+              выгорания.
+            </p>
+          </div>
+
+        </article>
+
+        <article class="card">
+
+          <div class="icon">
+            🌿
+          </div>
+
+          <div>
+            <h3>
+              Кризисы и перемены
+            </h3>
+
+            <p>
+              Поддержка в период жизненных
+              изменений и кризисов.
+            </p>
+          </div>
+
+        </article>
+
+        <article class="card">
+
+          <div class="icon">
+            ✨
+          </div>
+
+          <div>
+            <h3>
+              Самореализация
+            </h3>
+
+            <p>
+              Поиск пути развития,
+              внутренней опоры и
+              самореализации.
+            </p>
+          </div>
+
+        </article>
+
+        <article class="card">
+
+          <div class="icon">
+            🤝
+          </div>
+
+          <div>
+            <h3>
+              Отношения
+            </h3>
+
+            <p>
+              Сложности в личных
+              и рабочих отношениях.
+            </p>
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONSULTATION -->
+
+  <section
+    id="consultation"
+    class="section"
+  >
+
+    <div class="container">
+
+      <h2 class="section-title">
+        Как проходят консультации
+      </h2>
+
+      <p class="section-text">
+        Консультации проводятся
+        очно или онлайн —
+        по договорённости.
+      </p>
+
+      <div class="consultation-wrapper">
+
+        <div class="consultation-card">
+          <div class="icon" style="margin: 0 auto 18px;">
+            🏡
+          </div>
+
+          <h3>
+            Очные встречи
+          </h3>
+
+          <p>
+            Спокойное пространство
+            для личной работы.
+          </p>
+        </div>
+
+        <div class="consultation-card">
+
+          <div class="icon" style="margin: 0 auto 18px;">
+            💻
+          </div>
+
+          <h3>
+            Онлайн-консультации
+          </h3>
+
+          <p>
+            Удобный формат
+            из любой точки мира.
+          </p>
+
+        </div>
+
+        <div class="consultation-card">
+
+          <div class="icon" style="margin: 0 auto 18px;">
+            ⏳
+          </div>
+
+          <h3>
+            Длительность
+          </h3>
+
+          <p>
+            Одна консультация
+            длится 50 минут.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="confidential">
+        🔒 Все сессии строго конфиденциальны
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+
+  <section
+    id="contact"
+    class="section cta"
+  >
+
+    <div class="container cta-wrapper">
+
+      <div>
+
+        <h2 class="section-title">
+          Готовы сделать первый шаг?
+        </h2>
+
+        <p class="section-text">
+          Если у вас есть вопросы
+          или вы заинтересованы
+          в консультации —
+          буду рада вам помочь.
+        </p>
+
+        <a
+          class="contact-phone"
+          href="tel:+79117274986"
+        >
+          +7 911 727-49-86
+        </a>
+
+      </div>
+
+      <form
+        id="contact-form"
+        novalidate
+        aria-label="Форма записи на консультацию"
+      >
+
+        <div class="form-group">
+
+          <label for="name">
+            Имя
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+          />
+
+          <div class="error" id="name-error"></div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="phone">
+            Телефон
+          </label>
+
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="+7 (___) ___-__-__"
+            required
+          />
+
+          <div class="error" id="phone-error"></div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="format">
+            Предпочтительный формат
+          </label>
+
+          <select id="format" name="format">
+
+            <option value="">
+              Выберите формат
+            </option>
+
+            <option value="online">
+              Онлайн
+            </option>
+
+            <option value="offline">
+              Очно
+            </option>
+
+          </select>
+
+        </div>
+
+        <button
+          type="submit"
+          class="btn-primary"
+          style="width: 100%;"
+        >
+          Отправить заявку
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container footer-content">
+
+      <div>
+
+        <strong>
+          Мария Ридзель
+        </strong>
+
+        <br>
+
+        <a href="tel:+79117274986">
+          +7 911 727-49-86
+        </a>
+
+      </div>
+
+      <div class="socials">
+
+        <a href="#" aria-label="Telegram">
+          Telegram
+        </a>
+
+        <a href="#" aria-label="WhatsApp">
+          WhatsApp
+        </a>
+
+        <a href="#" aria-label="Instagram">
+          Instagram
+        </a>
+
+      </div>
+
+      <div>
+        Консультация не заменяет
+        медицинскую помощь
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- MODAL -->
+
+  <div
+    class="modal"
+    id="success-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+
+    <div class="modal-content">
+
+      <button
+        class="close-modal"
+        aria-label="Закрыть окно"
+      >
+        ×
+      </button>
+
+      <h3 id="modal-title">
+        Спасибо!
+      </h3>
+
+      <p style="margin-top: 16px;">
+        Мы свяжемся с вами
+        в течение 24 часов.
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+
+  <script>
+
+    // MOBILE MENU
+
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('nav');
+
+    burger.addEventListener('click', () => {
+
+      nav.classList.toggle('active');
+
+      const expanded =
+        burger.getAttribute('aria-expanded') === 'true';
+
+      burger.setAttribute(
+        'aria-expanded',
+        !expanded
+      );
+    });
+
+    // PHONE MASK
+
+    const phoneInput =
+      document.getElementById('phone');
+
+    phoneInput.addEventListener('input', maskPhone);
+
+    function maskPhone(e) {
+
+      let x = e.target.value
+        .replace(/\D/g, '')
+        .match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+
+      e.target.value =
+        !x[2]
+          ? '+7'
+          : `+7 (${x[2]}${x[3] ? ') ' + x[3] : ''}${x[4] ? '-' + x[4] : ''}${x[5] ? '-' + x[5] : ''}`;
+    }
+
+    // FORM VALIDATION
+
+    const form =
+      document.getElementById('contact-form');
+
+    const modal =
+      document.getElementById('success-modal');
+
+    const closeModal =
+      document.querySelector('.close-modal');
+
+    form.addEventListener('submit', function(e) {
+
+      e.preventDefault();
+
+      let valid = true;
+
+      const name =
+        document.getElementById('name');
+
+      const phone =
+        document.getElementById('phone');
+
+      document.getElementById('name-error').textContent = '';
+      document.getElementById('phone-error').textContent = '';
+
+      if(name.value.trim() === '') {
+
+        document.getElementById('name-error').textContent =
+          'Пожалуйста, укажите имя';
+
+        valid = false;
+      }
+
+      if(phone.value.length < 18) {
+
+        document.getElementById('phone-error').textContent =
+          'Введите корректный номер телефона';
+
+        valid = false;
+      }
+
+      if(valid) {
+
+        modal.classList.add('active');
+
+        form.reset();
+      }
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    window.addEventListener('click', (e) => {
+
+      if(e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // ESC CLOSE
+
+    document.addEventListener('keydown', (e) => {
+
+      if(e.key === 'Escape') {
+        modal.classList.remove('active');
+      }
+    });
+
+  </script>
+
+</body>
+</html>
