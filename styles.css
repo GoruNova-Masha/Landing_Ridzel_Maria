@@ -127,6 +127,11 @@ h3.h-serif { font-size: clamp(1.2rem, 2.5vw, 1.4rem); }
   line-height: 1.68;
 }
 
+.lead strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
 .section { padding-block: var(--section-y); }
 .divider { border: none; border-top: var(--line); margin-block: 0; }
 
@@ -512,7 +517,7 @@ h3.h-serif { font-size: clamp(1.2rem, 2.5vw, 1.4rem); }
 }
 
 .about__aside li::before {
-  content: '—';
+  content: '*';
   color: var(--terracotta);
   margin-right: 10px;
 }
@@ -659,20 +664,6 @@ h3.h-serif { font-size: clamp(1.2rem, 2.5vw, 1.4rem); }
 }
 
 .contact h2 { margin-bottom: 20px; }
-
-.contact__phone {
-  display: inline-block;
-  margin-top: 28px;
-  font-family: var(--serif);
-  font-size: clamp(1.35rem, 3vw, 1.65rem);
-  color: var(--terracotta);
-  transition: color var(--ease), letter-spacing var(--ease);
-}
-
-.contact__phone:hover {
-  color: var(--terracotta-dark);
-  letter-spacing: 0.02em;
-}
 
 .form-box {
   padding: 40px 36px;
