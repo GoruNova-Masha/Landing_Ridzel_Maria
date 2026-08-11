@@ -1,4 +1,4 @@
-const FORM_ENDPOINT = '';
+const FORM_ENDPOINT = 'https://formspree.io/f/myegwwwe';
 
 document.getElementById('menuBtn').addEventListener('click', function () {
   var open = document.getElementById('nav').classList.toggle('open');
@@ -137,19 +137,14 @@ document.getElementById('form').addEventListener('submit', async function (e) {
   var btn = document.getElementById('submitBtn');
   btn.classList.add('btn--loading');
   btn.disabled = true;
-  var payload = { name: nameEl.value.trim(), phone: phone.value, format: formatEl.value };
 
   try {
-    if (FORM_ENDPOINT) {
-      var res = await fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) throw new Error('fail');
-    } else {
-      await new Promise(function (r) { setTimeout(r, 800); });
-    }
+    var res = await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      body: new FormData(e.target),
+      headers: { Accept: 'application/json' }
+    });
+    if (!res.ok) throw new Error('fail');
     e.target.reset();
     phone.value = '';
     openModal();
